@@ -4,6 +4,7 @@
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void key_callback(GLFWwindow* window, int keyCode, int scanCode, int action, int mod);
 void processInput(GLFWwindow* window);
 
 // settings
@@ -34,6 +35,9 @@ int main()
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetKeyCallback(window, key_callback);
+
+    glViewport
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -70,8 +74,8 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow* window)
 {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+    // if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    //     glfwSetWindowShouldClose(window, true);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -83,4 +87,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+}
+
+void key_callback(GLFWwindow* window, int keyCode, int scanCode, int action, int mod) {
+    // if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    if(keyCode == GLFW_KEY_ESCAPE)
+        glfwSetWindowShouldClose(window, true);
 }
