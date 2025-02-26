@@ -1,7 +1,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+#include <string>
+#include <assert.h>
+#include <windows.h>
+#include <stdexcept>
 #include <iostream>
+#include "wrapper/wrapper.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int keyCode, int scanCode, int action, int mod);
@@ -10,6 +14,7 @@ void processInput(GLFWwindow* window);
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
 
 int main()
 {
@@ -54,7 +59,8 @@ int main()
         processInput(window);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        GL_CALL(glClear(GL_COLOR_BUFFER_BIT));
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
