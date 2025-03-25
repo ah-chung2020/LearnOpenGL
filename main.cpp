@@ -11,6 +11,61 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+void prepare() {
+    
+    /*
+     Single Buffer
+    */
+
+    float vertices[] = {
+        -0.5, -0.5, 0.0,            // 顶点1
+        0.5, -0.5, 0.0,             // 顶点2
+        0.0, 0.5, 0.0,              // 顶顶3
+    };
+
+    float colors[] = {
+        1.0, 0.0, 0.0,              // 顶点颜色1
+        0.0, 1.0, 0.0,              // 顶点颜色2
+        0.0, 0.0, 1.0,              // 顶点颜色3
+    };
+
+    GLuint vertexVBO, colorVBO;
+
+    glGenBuffers(1, &vertexVBO);                    // 生成vbo
+    glBindBuffer(GL_ARRAY_BUFFER, vertexVBO);       // 绑定vbo
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);  // 塞入数据
+
+    glGenBuffers(1, &colorVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, colorVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
+    
+    GLuint singleBufferVAO;
+    glGenBuffers(1, &singleBufferVAO);          // 生成vao
+    glBindVertexArray(singleBufferVAO);         // 绑定
+
+    glBindBuffer(GL_ARRAY_BUFFER, vertexVBO);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(
+        0,                         // VAO中0号位置
+        3,                         // 一个属性有3个元素
+        GL_FLOAT,                  // 数据是 float 类型的
+        GL_FALSE,                   // 是否归一化
+        3 * sizeof(float),          // 步长
+        (void*)0                    // 单元内偏移
+    );
+
+    glBindBuffer(GL_ARRAY_BUFFER, colorVBO);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(
+        1,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        3 * sizeof(float),
+        (void*)0
+    );
+}
+
 int main()
 {
     // glfw: initialize and configure
@@ -44,6 +99,8 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+
+    prepare();
 
     // render loop
     // -----------
