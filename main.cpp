@@ -54,7 +54,7 @@ int main() {
         );
         p.velocity = glm::vec4(
             0.0f, 0.0f, 0.0f, // 初始速度为0
-            rand() / (float)RAND_MAX * 5.0f + 1.0f // 存活时间: 1~6秒
+            20.0 // 存活时间: 1~6秒
         );
     }
 
