@@ -28,7 +28,7 @@ int main() {
 
     // 配置OpenGL上下文
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // 创建隐藏窗口（Compute Shader不需要可见窗口）
@@ -75,7 +75,11 @@ int main() {
 
     // 准备测试数据
     constexpr int DATA_SIZE = 8; // 小数据量便于验证
-    float initialData[DATA_SIZE] = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f };
+    float initialData[DATA_SIZE] = { 
+        1.0f, 2.0f, 3.0f, 
+        4.0f, 5.0f, 6.0f, 
+        7.0f, 8.0f 
+    };
 
     // 创建SSBO
     GLuint ssbo;
