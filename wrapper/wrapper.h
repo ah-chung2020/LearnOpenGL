@@ -6,9 +6,9 @@
 #include <assert.h>
 
 #ifdef DEBUG
-#define GL_CALL(func) func;check_error();
+#define GL_CALL(func) func;check_error()
 #else
-#define GL_CALL(func) func;
+#define GL_CALL(func) func
 #endif
 
 void check_error();

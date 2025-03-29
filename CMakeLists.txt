@@ -17,10 +17,9 @@ include_directories(
 )
 
 add_subdirectory(wrapper)
-add_subdirectory(shader)
 
 #本工程所有cpp文件编译链接，生成exe
 add_executable(LearnOpenGl "main.cpp" "glad.c")
 
-target_link_libraries(LearnOpenGl "${PROJECT_SOURCE_DIR}/lib/glfw3.lib" wrapperLib shaderLib)
+target_link_libraries(LearnOpenGl "${PROJECT_SOURCE_DIR}/lib/glfw3.lib" wrapperLib)
 
