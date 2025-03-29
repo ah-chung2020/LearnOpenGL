@@ -89,6 +89,17 @@ int main() {
                 particles[idx].position.xyz += particles[idx].velocity.xyz * deltaTime;
                 particles[idx].velocity.w -= deltaTime;
             }
+
+            // 计算着色器修改
+            float floorHeight = -1.4; // 地面高度
+            float restitution = 0.8;  // 反弹系数（0.8保留80%速度）
+
+            if (particles[idx].position.y < floorHeight) {
+                particles[idx].position.y = floorHeight;                    // 防止穿透
+                particles[idx].velocity.y *= -restitution;                  // Y轴速度反转并衰减
+                particles[idx].velocity.xz *= 0.9;                         // 水平方向摩擦力
+            }
+
         }
     )glsl";
     GLuint computeShader = compileShader(GL_COMPUTE_SHADER, computeShaderSource);
