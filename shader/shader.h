@@ -1,32 +1,12 @@
 #pragma once
+#include <string_view>
 
-enum class SHADERTYPE {
 
-	TYPE_NONE,
-	TYPE_VERTEX,
-	TYPE_FRAGMENT,
-	TYPE_COMPUTE,
-};
-
-class ShaderBase {
+class Shader {
 public:
-	ShaderBase()
+	Shader(std::string_view vShaderPath, std::string_view fShaderPath);
 
-private:
-	SHADERTYPE m_type = SHADERTYPE::TYPE_NONE;
-};
+	void Begin();
 
-class VertexShader : public ShaderBase {
-private:
-	SHADERTYPE m_type = SHADERTYPE::TYPE_VERTEX;
-};
-
-class FragmentShader : public ShaderBase {
-private:
-	SHADERTYPE m_type = SHADERTYPE::TYPE_FRAGMENT;
-};
-
-class ComputeShader : public ShaderBase {
-private:
-	SHADERTYPE m_type = SHADERTYPE::TYPE_COMPUTE;
+	void End();
 };
