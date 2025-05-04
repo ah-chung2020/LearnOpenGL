@@ -1,6 +1,8 @@
 #pragma once
+#include <iostream>
 #include <string_view>
 
+#include "../Base.h"
 
 class Shader {
 public:
@@ -9,4 +11,9 @@ public:
 	void Begin();
 
 	void End();
+
+private:
+	unsigned int _ReadAndCompileShader(int shaderType, const char*& shaderContentStr);
+
+	unsigned int m_shaderProgram;
 };

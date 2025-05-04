@@ -1,5 +1,4 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "Base.h"
 
 #include <iostream>
 
@@ -87,6 +86,7 @@ int main()
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
+
     // link shaders
     unsigned int shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);

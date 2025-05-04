@@ -16,11 +16,14 @@ include_directories(
   "${PROJECT_SOURCE_DIR}/include"
 )
 
+file(GLOB copyAssets "./assets")
+file(COPY ${copyAssets} DESTINATION ${CMAKE_BINARY_DIR})
+
 add_subdirectory(wrapper)
 add_subdirectory(shader)
 
 #本工程所有cpp文件编译链接，生成exe
-add_executable(LearnOpenGl "main.cpp" "glad.c")
+add_executable(LearnOpenGl "main.cpp" "glad.c" "Base.h")
 
 target_link_libraries(LearnOpenGl "${PROJECT_SOURCE_DIR}/lib/glfw3.lib" wrapperLib shaderLib)
 
