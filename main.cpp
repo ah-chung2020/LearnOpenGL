@@ -1,6 +1,7 @@
 #include "Base.h"
 
 #include <iostream>
+#include "shader/shader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -59,6 +60,11 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+
+    Shader _shaderProgram = Shader(
+        "assets/shaders/triangle.vert",
+        "assets/shaders/triangle.frag"
+    );
 
     // build and compile our shader program
     // ------------------------------------

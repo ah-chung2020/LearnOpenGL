@@ -13,7 +13,7 @@ public:
 	void End();
 
 private:
-	unsigned int _ReadAndCompileShader(int shaderType, const char*& shaderContentStr);
+	unsigned int _ReadAndCompileShader(int shaderType, const char* shaderContentStr);
 
 	unsigned int m_shaderProgram;
 };
