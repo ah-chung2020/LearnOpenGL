@@ -49,8 +49,6 @@ void prepareTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     // V·½Ïò
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    std::cout << "load texture success." << std::endl;
 }
 
 int main()
