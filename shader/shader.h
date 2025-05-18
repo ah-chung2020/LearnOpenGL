@@ -12,6 +12,8 @@ public:
 
 	void End();
 
+	void SetInt(std::string_view name, int value);
+
 private:
 	unsigned int _ReadAndCompileShader(int shaderType, const char* shaderContentStr);
 

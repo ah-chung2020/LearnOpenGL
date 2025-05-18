@@ -50,7 +50,7 @@ void prepareTexture() {
     // V方向
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-
+    std::cout << "load texture success." << std::endl;
 }
 
 int main()
@@ -91,9 +91,6 @@ int main()
         "assets/shaders/triangle.frag"
     );
 
-    // set up vertex data (and buffer(s)) and configure vertex attributes
-    // ------------------------------------------------------------------
-    
     float vertices[] = {
         // positions         // colors         // uv
          0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f, 0.0f, 0.0f,// bottom right
@@ -146,6 +143,8 @@ int main()
         // ------
         _shaderProgram.Begin();
 
+        // 0号纹理单元
+        _shaderProgram.SetInt("sampler", 0);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "shader.h"
 #include "fstream"
 #include "sstream"
 
@@ -96,6 +97,15 @@ void Shader::Begin() {
 
 void Shader::End() {
 	glUseProgram(0);
+}
+
+void Shader::SetInt(std::string_view name, int value)
+{
+	// 按名字找出location
+	GLint location = glGetUniformLocation(m_shaderProgram, name.data());
+
+	// 按location设置值
+	glUniform1i(location, value);
 }
 
 unsigned int Shader::_ReadAndCompileShader(int shaderType, const char* shaderContentStr)
