@@ -53,6 +53,19 @@ void prepareTexture() {
 
 int main()
 {
+    glm::vec2 v0{ 0 };
+    std::cout << glm::to_string(v0) << std::endl;
+
+    glm::mat4x4 mat1{ 1.0 };
+    std::cout << glm::to_string(mat1) << std::endl;
+
+    glm::mat4x4 mat2 = glm::identity<glm::mat4x4>();
+    std::cout << glm::to_string(mat2) << std::endl;
+
+    glm::vec3 translation(1.0f, 2.0f, 3.0f); // 定义平移向量
+    mat2 = glm::translate(mat2, translation); // 应用平移
+    std::cout << glm::to_string(mat2) << std::endl;
+
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
