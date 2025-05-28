@@ -14,6 +14,8 @@ public:
 
 	void SetInt(std::string_view name, int value);
 
+	void SetMat4(std::string_view name, glm::mat4 value);
+
 private:
 	unsigned int _ReadAndCompileShader(int shaderType, const char* shaderContentStr);
 

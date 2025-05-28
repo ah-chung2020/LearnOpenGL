@@ -15,6 +15,9 @@ const unsigned int SCR_HEIGHT = 600;
 
 GLuint texture;
 
+glm::mat4 transform(0.0f);
+
+
 void prepareTexture() {
 
     int width, height, channels;
@@ -49,6 +52,13 @@ void prepareTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     // V方向
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+}
+
+
+void doTransform() {
+
+    transform = glm::identity<glm::mat4>();
+    transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
 }
 
 int main()
@@ -154,8 +164,11 @@ int main()
         // ------
         _shaderProgram.Begin();
 
+        doTransform();
+
         // 0号纹理单元
         _shaderProgram.SetInt("sampler", 0);
+        _shaderProgram.SetMat4("transform", transform);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

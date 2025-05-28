@@ -1,5 +1,6 @@
 #include "shader.h"
 #include "shader.h"
+#include "shader.h"
 #include "fstream"
 #include "sstream"
 
@@ -104,8 +105,24 @@ void Shader::SetInt(std::string_view name, int value)
 	// 按名字找出location
 	GLint location = glGetUniformLocation(m_shaderProgram, name.data());
 
+	if (location == -1) {
+		std::cerr << "Warning: Uniform '" << name << "' not found\n";
+		return;
+	}
+
 	// 按location设置值
 	glUniform1i(location, value);
+}
+
+void Shader::SetMat4(std::string_view name, glm::mat4 value)
+{
+	GLint location = glGetUniformLocation(m_shaderProgram, name.data());
+	if (location == -1) {
+		std::cerr << "Warning: Uniform '" << name << "' not found\n";
+		return;
+	}
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value));
+
 }
 
 unsigned int Shader::_ReadAndCompileShader(int shaderType, const char* shaderContentStr)
