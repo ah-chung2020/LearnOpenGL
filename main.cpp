@@ -15,8 +15,8 @@ const unsigned int SCR_HEIGHT = 600;
 
 GLuint texture;
 
-glm::mat4 transform(0.0f);
-
+glm::mat4 transform(1.0f);
+glm::mat4 viewMatrix(1.0f);
 
 void prepareTexture() {
 
@@ -55,26 +55,40 @@ void prepareTexture() {
 }
 
 
-void doTransform() {
+void prepareModelingTransform() {
 
     transform = glm::identity<glm::mat4>();
-    transform = glm::scale(transform, glm::vec3(0.5f, 0.5f, 0.5f));
+    transform = glm::scale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
+}
+
+void prepareCameraTransform() {
+
+    glm::vec3 eyePosition = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 targetPosition = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 upDirection = glm::vec3(0.0f, 1.0f, 0.0f);
+
+    viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
 }
 
 int main()
 {
-    glm::vec2 v0{ 0 };
-    std::cout << glm::to_string(v0) << std::endl;
 
-    glm::mat4x4 mat1{ 1.0 };
-    std::cout << glm::to_string(mat1) << std::endl;
+    // NDC coords testing
+    glm::vec3 point1 = glm::vec3(0.5f, -0.5f, 0.0f);
+    glm::vec3 point2 = glm::vec3(-0.5f, -0.5f, 0.0f);
+    glm::vec3 point3 = glm::vec3(0.0f, 0.5f, 0.0f);
 
-    glm::mat4x4 mat2 = glm::identity<glm::mat4x4>();
-    std::cout << glm::to_string(mat2) << std::endl;
+    glm::mat4 myViewMatrix = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, -2.0f), 
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(0.0f, 1.0f, 0.0f)
+    );
 
-    glm::vec3 translation(1.0f, 2.0f, 3.0f); // 定义平移向量
-    mat2 = glm::translate(mat2, translation); // 应用平移
-    std::cout << glm::to_string(mat2) << std::endl;
+    glm::vec3 point1_output = myViewMatrix * glm::vec4(point1, 1.0f);
+
+    std::cout << "point1: " << glm::to_string(point1) << std::endl;
+    std::cout << "point1_output: " << glm::to_string(point1_output) << std::endl;
+
 
     // glfw: initialize and configure
     // ------------------------------
@@ -164,11 +178,14 @@ int main()
         // ------
         _shaderProgram.Begin();
 
-        doTransform();
+        prepareModelingTransform();
+
+        prepareCameraTransform();
 
         // 0号纹理单元
         _shaderProgram.SetInt("sampler", 0);
         _shaderProgram.SetMat4("transform", transform);
+        _shaderProgram.SetMat4("viewMatrix", viewMatrix);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);

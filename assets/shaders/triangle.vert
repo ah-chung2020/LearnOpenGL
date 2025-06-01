@@ -5,13 +5,14 @@ layout (location = 1) in vec3 aColor;
 layout (location = 2) in vec2 aUV;
 
 uniform mat4 transform;
+uniform mat4 viewMatrix;
 
 out vec3 ourColor;
 out vec2 ourUV;
 
 void main()
 {
-	gl_Position = transform * vec4(aPos, 1.0);
+	gl_Position = viewMatrix * transform * vec4(aPos, 1.0);
 	ourColor = aColor;
 	ourUV = aUV;
 }
