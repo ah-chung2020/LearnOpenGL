@@ -63,7 +63,7 @@ void prepareModelingTransform() {
 
 void prepareCameraTransform() {
 
-    glm::vec3 eyePosition = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 eyePosition = glm::vec3(1.0f, 0.2f, 0.5f);
     glm::vec3 targetPosition = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 upDirection = glm::vec3(0.0f, 1.0f, 0.0f);
 
