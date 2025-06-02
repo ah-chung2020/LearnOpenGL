@@ -17,6 +17,7 @@ GLuint texture;
 
 glm::mat4 transform(1.0f);
 glm::mat4 viewMatrix(1.0f);
+glm::mat4 orthographicMatrix(1.0f);
 
 void prepareTexture() {
 
@@ -56,7 +57,6 @@ void prepareTexture() {
 
 
 void prepareModelingTransform() {
-
     transform = glm::identity<glm::mat4>();
     transform = glm::scale(transform, glm::vec3(1.0f, 1.0f, 1.0f));
 }
@@ -68,6 +68,15 @@ void prepareCameraTransform() {
     glm::vec3 upDirection = glm::vec3(0.0f, 1.0f, 0.0f);
 
     viewMatrix = glm::lookAt(eyePosition, targetPosition, upDirection);
+}
+
+void prepareOrthographic() {
+
+    orthographicMatrix = 
+        glm::ortho(-2.0f, 2.0f,
+                -2.0f, 2.0f,
+                 2.0f, -2.0f
+    );
 }
 
 int main()
@@ -179,13 +188,14 @@ int main()
         _shaderProgram.Begin();
 
         prepareModelingTransform();
-
         prepareCameraTransform();
+        prepareOrthographic();
 
         // 0ºÅÎÆÀíµ¥Ôª
         _shaderProgram.SetInt("sampler", 0);
         _shaderProgram.SetMat4("transform", transform);
         _shaderProgram.SetMat4("viewMatrix", viewMatrix);
+        _shaderProgram.SetMat4("orthoMatrix", orthographicMatrix);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
