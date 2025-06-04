@@ -18,6 +18,7 @@ GLuint texture;
 glm::mat4 transform(1.0f);
 glm::mat4 viewMatrix(1.0f);
 glm::mat4 orthographicMatrix(1.0f);
+glm::mat4 perspectiveMatrix(1.0f);
 
 void prepareTexture() {
 
@@ -63,7 +64,7 @@ void prepareModelingTransform() {
 
 void prepareCameraTransform() {
 
-    glm::vec3 eyePosition = glm::vec3(1.0f, 0.2f, 0.5f);
+    glm::vec3 eyePosition = glm::vec3(0.0f, 0.0f, 2.0f);
     glm::vec3 targetPosition = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::vec3 upDirection = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -79,24 +80,34 @@ void prepareOrthographic() {
     );
 }
 
+void preparePerspectiveMatrix() {
+
+    perspectiveMatrix = glm::perspective(
+        glm::radians(60.0f),
+        static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT),
+        0.1f,
+        1000.0f
+    );
+}
+
 int main()
 {
 
-    // NDC coords testing
-    glm::vec3 point1 = glm::vec3(0.5f, -0.5f, 0.0f);
-    glm::vec3 point2 = glm::vec3(-0.5f, -0.5f, 0.0f);
-    glm::vec3 point3 = glm::vec3(0.0f, 0.5f, 0.0f);
+    //// NDC coords testing
+    //glm::vec3 point1 = glm::vec3(0.5f, -0.5f, 0.0f);
+    //glm::vec3 point2 = glm::vec3(-0.5f, -0.5f, 0.0f);
+    //glm::vec3 point3 = glm::vec3(0.0f, 0.5f, 0.0f);
 
-    glm::mat4 myViewMatrix = glm::lookAt(
-        glm::vec3(0.0f, 0.0f, -2.0f), 
-        glm::vec3(0.0f, 0.0f, 0.0f),
-        glm::vec3(0.0f, 1.0f, 0.0f)
-    );
+    //glm::mat4 myViewMatrix = glm::lookAt(
+    //    glm::vec3(0.0f, 0.0f, -2.0f), 
+    //    glm::vec3(0.0f, 0.0f, 0.0f),
+    //    glm::vec3(0.0f, 1.0f, 0.0f)
+    //);
 
-    glm::vec3 point1_output = myViewMatrix * glm::vec4(point1, 1.0f);
+    //glm::vec3 point1_output = myViewMatrix * glm::vec4(point1, 1.0f);
 
-    std::cout << "point1: " << glm::to_string(point1) << std::endl;
-    std::cout << "point1_output: " << glm::to_string(point1_output) << std::endl;
+    //std::cout << "point1: " << glm::to_string(point1) << std::endl;
+    //std::cout << "point1_output: " << glm::to_string(point1_output) << std::endl;
 
 
     // glfw: initialize and configure
@@ -190,12 +201,13 @@ int main()
         prepareModelingTransform();
         prepareCameraTransform();
         prepareOrthographic();
+        preparePerspectiveMatrix();
 
         // 0ºÅÎÆÀíµ¥Ôª
         _shaderProgram.SetInt("sampler", 0);
         _shaderProgram.SetMat4("transform", transform);
         _shaderProgram.SetMat4("viewMatrix", viewMatrix);
-        _shaderProgram.SetMat4("orthoMatrix", orthographicMatrix);
+        _shaderProgram.SetMat4("projectionMatrix", perspectiveMatrix);
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
