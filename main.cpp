@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "shader/shader.h"
+#include "application/camera/OrthoGraphicCamera.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -120,22 +121,11 @@ void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos) {
 int main()
 {
 
-    //// NDC coords testing
-    //glm::vec3 point1 = glm::vec3(0.5f, -0.5f, 0.0f);
-    //glm::vec3 point2 = glm::vec3(-0.5f, -0.5f, 0.0f);
-    //glm::vec3 point3 = glm::vec3(0.0f, 0.5f, 0.0f);
+    OrthoGraphicCamera camera{};
+    glm::mat4 viewMatrix = camera.GetViewMatrix();
 
-    //glm::mat4 myViewMatrix = glm::lookAt(
-    //    glm::vec3(0.0f, 0.0f, -2.0f), 
-    //    glm::vec3(0.0f, 0.0f, 0.0f),
-    //    glm::vec3(0.0f, 1.0f, 0.0f)
-    //);
-
-    //glm::vec3 point1_output = myViewMatrix * glm::vec4(point1, 1.0f);
-
-    //std::cout << "point1: " << glm::to_string(point1) << std::endl;
-    //std::cout << "point1_output: " << glm::to_string(point1_output) << std::endl;
-
+    std::cout << "viewMatrix:" << std::endl;
+    std::cout << glm::to_string(viewMatrix) << std::endl;
 
     // glfw: initialize and configure
     // ------------------------------
