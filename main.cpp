@@ -90,6 +90,33 @@ void preparePerspectiveMatrix() {
     );
 }
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+   
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+        return;
+    }
+      
+    const char* name = glfwGetKeyName(key, scancode);
+    std::cout << "name: " << name << ", scancode: " << scancode << ", action: " << action << std::endl;
+
+
+}
+
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        printf("左键按下\n");
+    }
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+        printf("左键抬起\n");
+    }
+}
+
+void cursor_pos_callback(GLFWwindow* window, double xpos, double ypos) {
+    printf("鼠标坐标: (%.1f, %.1f)\n", xpos, ypos);
+}
+
+
 int main()
 {
 
@@ -132,6 +159,10 @@ int main()
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetCursorPosCallback(window, cursor_pos_callback);
 
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -192,7 +223,7 @@ int main()
     {
         // input
         // -----
-        processInput(window);
+        //processInput(window);
 
         // render
         // ------
